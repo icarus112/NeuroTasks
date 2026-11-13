@@ -1,0 +1,6 @@
+D:\studying\Методы оптимизации\NeuroTasks\obj\Debug\net8.0\NeuroTasks.csproj.AssemblyReference.cache
+D:\studying\Методы оптимизации\NeuroTasks\obj\Debug\net8.0\NeuroTasks.GeneratedMSBuildEditorConfig.editorconfig
+D:\studying\Методы оптимизации\NeuroTasks\obj\Debug\net8.0\NeuroTasks.AssemblyInfoInputs.cache
+D:\studying\Методы оптимизации\NeuroTasks\obj\Debug\net8.0\NeuroTasks.AssemblyInfo.cs
+D:\studying\Методы оптимизации\NeuroTasks\obj\Debug\net8.0\NeuroTasks.csproj.CoreCompileInputs.cache
+D:\studying\Методы оптимизации\NeuroTasks\obj\Debug\net8.0\NeuroTasks.sourcelink.json

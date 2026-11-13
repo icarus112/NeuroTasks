@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NeuroTasks")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+41f057963825b3046cc22454ae01605a12b52d7d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f03b736f10b02149a0b24453444b082746189f33")]
 [assembly: System.Reflection.AssemblyProductAttribute("NeuroTasks")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NeuroTasks")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

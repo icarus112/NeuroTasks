@@ -1,4 +1,4 @@
-namespace Core.GeneticAlgorithm;
+namespace Core.Genetics;
 
 public class GeneticAlgorithm
 {
@@ -98,7 +98,7 @@ public class GeneticAlgorithm
             double[] genome = origin.Network.GetGenome();
 
             copy.Network.SetGenome(genome);
-            copy.Fitness = origin.Fitness;
+            copy.SetFitness(origin.Fitness);
 
             eliteCopies.Add(copy);
         }

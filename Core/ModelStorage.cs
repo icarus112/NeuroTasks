@@ -1,7 +1,7 @@
 using System.Text.Json;
 using Core.Neural;
 
-namespace Core.ModelStorage;
+namespace Core.Models;
 
 public class ModelData
 {

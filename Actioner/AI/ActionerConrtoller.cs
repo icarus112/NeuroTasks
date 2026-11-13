@@ -29,6 +29,10 @@ public class ActionerConrtoller
 
         foreach(var item in rank)
         {
+            if (item.Priority <= 0)
+            {
+                break;
+            }
             double cost = item.Project.Cost; 
             if(budget >= cost)
             {

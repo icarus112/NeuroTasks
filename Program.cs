@@ -2,7 +2,7 @@
 using SnakeTasks.AI;
 using SnakeTasks.Game;
 using Core.Neural;
-using Core.ModelStorage;
+using Core.Models;
 
 
 class Program

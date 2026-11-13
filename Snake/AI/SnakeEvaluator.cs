@@ -1,28 +1,81 @@
+using Core.Individ;
 using SnakeTasks.Game;
+using Core.Genetics;
+using Core.Training;
 
 namespace SnakeTasks.AI;
 
-public class SnakeEvaluator
+class SnakeEvaluator : IPopulationEvaluator
 {
-    // для вычисление успешности нейронки по статистике
-    public double Calculate(GameStats stats)
+    private readonly GameObservation observation = new();
+    private readonly SnakeController controller = new();
+    private readonly SnakeFitness fitnessEvaluator = new();
+
+    // запуск игровой сессии с нейронкой и вычисление Fitness
+    public void Evaluate(Individ individ)
     {
-        int score = stats.Score;
-        int steps = stats.Steps;
+        const int episodes = 5;
 
-        // double fitness = 10*score + 0.00008 * steps;
+        double totalFitness = 0;
 
-        // double fitness = 10*score + 0.00008 * steps + 0.01 * stats.FoodProgress;
+        for (int episode = 0; episode < episodes; episode++)
+        {
+            GameEngine game = new GameEngine(
+                25,
+                20,
+                new Random(1000 + episode)
+            );
 
-        // double fitness = 10 * score 
-        // + 0.00008 * steps 
-        // + 0.1 * stats.FoodProgress
-        // - 0.005 * stats.Turns;
+            while (!game.IsGameOver)
+            {
+                double[] inputs = observation.GetState(game);
 
-        double fitness =
-            10 * stats.Score
-            + 0.1 * stats.FoodProgress
-            - 0.5 * stats.HungerPenalty;
-        return fitness;
+                double[] outputs = individ.Network.Forward(inputs);
+
+                int action = individ.Network.GetAction(outputs);
+
+                Direction direction = controller.GetDirection(
+                    game.Snake.CurrentDirection,
+                    action
+                );
+
+                Direction previousDirection = game.Snake.CurrentDirection;
+
+                game.Snake.ChangeDirection(direction);
+
+                if (game.Snake.CurrentDirection != previousDirection)
+                {
+                    game.Stats.AddTurn();
+                }
+
+                game.Update();
+            }
+
+            totalFitness += fitnessEvaluator.Calculate(game.Stats);
+        }
+
+        individ.SetFitness(totalFitness / episodes);        // Console.WriteLine(
+            //     $"Score: {game.Stats.Score}, " +
+            //     $"Steps: {game.Stats.Steps}, " +
+            //     $"StepsSinceFood: {game.Stats.StepsSinceFoods}"
+            // );
+}
+
+    // Evaluate для всей популяции
+    public void EvaluatePopulation(Population population)
+    {
+        SnakeEvaluator evaluator = new SnakeEvaluator();
+        
+        // foreach (Individ individ in population.Individuals)
+        // {
+        //     evaluator.Evaluate(individ);
+        // }
+        Parallel.ForEach(
+            population.Individuals,
+            individ =>
+            {
+                evaluator.Evaluate(individ);
+            }
+        );
     }
 }

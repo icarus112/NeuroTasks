@@ -1,19 +1,25 @@
 using Core.Neural;
-using Core.GeneticAlgorithm;
-using Core.ModelStorage;
+using Core.Genetics;
+using Core.Models;
 
-namespace SnakeTasks.AI;
+namespace Core.Training;
 
-public class SnakeTrain
+class TrainingManager
 {
     private readonly GeneticAlgorithm geneticAlgorithm = new();
-    private readonly IndividEvaluator evaluator = new();
+    private readonly IPopulationEvaluator evaluator = new();
+
+    public TrainingManager(IPopulationEvaluator evaluator)
+    {
+        this.evaluator = evaluator;
+    }
 
     public NeuralNetwork Train(
         int generations,
         int populationSize,
         int numOfSaves,
-        int[] layers)
+        int[] layers,
+        string modelDirectory)
     {
         if (generations <= 0)
             throw new ArgumentException("Количество поколений должно быть положительным.");
@@ -78,10 +84,12 @@ public class SnakeTrain
 
             if (generation + 1 >= nextSaveGeneration)
             {
-                ModelStorage.Save(
-                    bestNetwork!,
-                    $"/SnakeModels/Model_5/best_snake_{generation + 1}.json"
+                    string path = Path.Combine(
+                    modelDirectory,
+                    $"best_gen_{generation + 1}.json"
                 );
+
+                ModelStorage.Save(bestNetwork!, path);
 
                 savesDone++;
             }
@@ -93,3 +101,5 @@ public class SnakeTrain
             ?? throw new InvalidOperationException("Обучение не завершилось успешно.");
     }
 }
+
+

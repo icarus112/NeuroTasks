@@ -1,6 +1,6 @@
 using SnakeTasks.AI;
 
-namespace Core.GeneticAlgorithm;
+namespace Core.Genetics;
 
 public class Population
 {
