@@ -7,8 +7,7 @@ namespace Core.Training;
 class TrainingManager
 {
     private readonly GeneticAlgorithm geneticAlgorithm = new();
-    private readonly IPopulationEvaluator evaluator = new();
-
+    private readonly IPopulationEvaluator evaluator;
     public TrainingManager(IPopulationEvaluator evaluator)
     {
         this.evaluator = evaluator;
@@ -35,7 +34,7 @@ class TrainingManager
 
         Population population = new Population(populationSize, layers);
 
-        Directory.CreateDirectory("/SnakeModels/Model_5");
+        Directory.CreateDirectory(modelDirectory);
 
         int saveTarget = Math.Min(numOfSaves, generations);
         int savesDone = 0;

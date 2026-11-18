@@ -1,6 +1,5 @@
 using Core.Training;
 using Actioner.Models;
-using Core.Individ;
 using Core.Genetics;
 
 namespace Actioner.AI;
